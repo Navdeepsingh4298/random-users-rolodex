@@ -1,5 +1,6 @@
 import React from "react";
 import CardList from './components/card-list/card-list.component';
+import SetNo from './components/select-set/setno.component';
 import SearchBox from './components/search-box/search-box.component';
 import './App.css';
 
@@ -9,30 +10,35 @@ class App extends React.Component {
     super();
 
     this.state = {
-      monsters: [],
-      searchField: ''
+      people: [],
+      searchField: '',
+      set: '5'
     };
   }
 
   componentDidMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
-      .then(users => this.setState({ monsters: users }));
+      .then(users => this.setState({ people: users }));
   }
 
   render() {
-    const { monsters, searchField } = this.state;
-    const filteredMonsters = monsters.filter(monster =>
-      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    const { people, searchField, set } = this.state;
+    const filteredpeople = people.filter(person =>
+      person.name.toLowerCase().includes(searchField.toLowerCase())
     );
     return (
       <div className='App'>
         <h1> Random Users Rolodex </h1>
+        <SetNo
+          placeholder="Select set"
+          handleSetNo={e => this.setState({ set: e.target.value })}
+        />
         <SearchBox
           placeholder="Search Here"
           handleChange={e => this.setState({ searchField: e.target.value })}
         />
-        <CardList monsters={filteredMonsters} />
+        <CardList people={filteredpeople} set={set} />
       </div >
     );
   }
