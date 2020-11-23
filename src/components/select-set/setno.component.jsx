@@ -7,7 +7,7 @@ export default function SetNo({ placeholder, handleSetNo }) {
       <input className="set"
         type="number" min="1" max="5"
         placeholder={placeholder}
-        onChang={handleSetNo} />
+        onChange={handleSetNo} />
     </div>
   )
 }
